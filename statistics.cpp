@@ -3,17 +3,14 @@
 #include<iostream>
 #include<iomanip>
 #include<vector>
+#include<time.h>
+#include<cstdlib>
 
 using namespace std;
 
 const double cardProb = (1.0 / 13.0);//Probability of a single card being selected
-
-class RandomNumGenerator
-{
-public:
-
-private:
-};
+const int decksInShoe = 8;
+const int numCards = decksInShoe * 52;
 
 class Dealer
 {
@@ -68,11 +65,15 @@ private:
 class Game
 {
 public:
-
+	int pullCard()
+	{
+		srand(time(NULL));//Initalizes seed
+		int card = rand() % 13 + 1;//Generates random number between 1-13
+		return card;
+	}
 private:
 
 };
-
 
 int main()
 {
