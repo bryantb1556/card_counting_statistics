@@ -40,6 +40,12 @@ public:
 		return card;
 	}
 
+	void reshuffle()
+	{
+		cardsAvailable.clear();
+		initalizeCards();
+	}
+
 private:
 	vector<int> cardsAvailable;
 };
@@ -75,7 +81,7 @@ public:
 
 	void houseStrategy(int houseTotal, int playerTotal)
 	{
-
+	
 	}
 
 private:
@@ -93,6 +99,7 @@ public:
 		cards.clear();
 	}
 	~Counter(){}//Destructor
+
 	void changeCount(int change)
 	{
 		count += change;
@@ -108,9 +115,46 @@ public:
 		cards.clear();
 	}
 
-	void playerStrategy(int playerTotal, int houseTotal)
+	void playerStrategy(int faceUp)
 	{
+		int cardTotal = 0;
+		bool softTotal = false;
+		if (cards[0] == 11 || cards[0] == 12 || cards[0] == 13) cards[0] = 10;//Face cards set to value of 10
+		if (cards[1] == 11 || cards[1] == 12 || cards[1] == 13) cards[1] = 10;
+		cardTotal = cards[0] + cards[1];
+		switch (faceUp)//Player stratedgy based on dealer card
+		{
+		case 1:
 
+			break;
+		case 2:
+
+			break;
+		case 3:
+
+			break;
+		case 4:
+
+			break;
+		case 5:
+
+			break;
+		case 6:
+
+			break;
+		case 7:
+
+			break;
+		case 8:
+
+			break;
+		case 9:
+
+			break;
+		case 10:
+
+			break;
+		}
 	}
 
 private:
@@ -125,17 +169,23 @@ void Game()
 {
 	Dealer house;
 	Counter player;
+	int card = 0;
+	int faceUp = 0;
 
+	card = house.pullCard();//1st pCard
+	player.addCard(card);
+	faceUp = house.pullCard();//1st hCard(showed to player)
+	house.addCard(faceUp);
+	card = house.pullCard();//2nd pCard
+	player.addCard(card);
+	card = house.pullCard();//2nd hCard
+	house.addCard(card);
+	player.playerStrategy(faceUp);
 }
 
 int main()
 {
-	Dealer house;
-	for (int i = 0; i < 100; i++)
-	{
-		int x = house.pullCard();
-		cout << x << " ";
-	} 
+	Game();
 
 	return 0;
 }
