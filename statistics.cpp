@@ -145,65 +145,74 @@ public:
 		{
 		case 1://Dealer has ace
 			if (checkEleven(cardTotal)) choice = DOUBLE;
-			else if (cardTotal < 17)
-			{
-				choice = HIT;
-			}
-			else
-			{
-				choice = STAND;
-			}
+			else if (cardTotal < 17) choice = HIT;
+			else choice = STAND;
 			break;
+
 		case 2://Dealer has 2
 			if (checkEleven(cardTotal)) choice = DOUBLE;
 			else if (cardTotal == 10) choice = DOUBLE;
-			else if (cardTotal < 13)
-			{
-				choice = HIT;
-			}
-			else
-			{
-				choice = STAND;
-			}
+			else if (cardTotal < 13) choice = HIT;
+			else choice = STAND;
 			break;
+
 		case 3://Dealer has 3
 			if (checkEleven(cardTotal)) choice = DOUBLE;
-			if (cardTotal == 10) choice = DOUBLE;
-
+			else if (cardTotal == 10) choice = DOUBLE;
+			else if (cardTotal == 9) choice = DOUBLE;
+			else if (cardTotal < 13) choice = HIT;
+			else choice = STAND;
 			break;
+
 		case 4://Dealer has 4
 			if (checkEleven(cardTotal)) choice = DOUBLE;
-			if (cardTotal == 10) choice = DOUBLE;
-
+			else if (cardTotal == 10) choice = DOUBLE;
+			else if (cardTotal == 9) choice = DOUBLE;
+			else if (cardTotal <= 8) choice = HIT;
+			else choice = STAND;
 			break;
+
 		case 5://Dealer has 5
 			if (checkEleven(cardTotal)) choice = DOUBLE;
-			if (cardTotal == 10) choice = DOUBLE;
-
+			else if (cardTotal == 10) choice = DOUBLE;
+			else if (cardTotal == 9) choice = DOUBLE;
+			else if (cardTotal <= 8) choice = HIT;
+			else choice = STAND;
 			break;
+
 		case 6://Dealer has 6
 			if (checkEleven(cardTotal)) choice = DOUBLE;
-			if (cardTotal == 10) choice = DOUBLE;
-
+			else if (cardTotal == 10) choice = DOUBLE;
+			else if (cardTotal == 9) choice = DOUBLE;
+			else if (cardTotal <= 8) choice = HIT;
+			else choice = STAND;
 			break;
+
 		case 7://Dealer has 7
 			if (checkEleven(cardTotal)) choice = DOUBLE;
-			if (cardTotal == 10) choice = DOUBLE;
-
+			else if (cardTotal == 10) choice = DOUBLE;
+			else if (cardTotal < 17) choice = HIT;
+			else choice = STAND;
 			break;
+
 		case 8://Dealer has 8
 			if (checkEleven(cardTotal)) choice = DOUBLE;
-			if (cardTotal == 10) choice = DOUBLE;
-
+			else if (cardTotal == 10) choice = DOUBLE;
+			else if (cardTotal < 17) choice = HIT;
+			else choice = STAND;
 			break;
+
 		case 9://Dealer has 9
 			if (checkEleven(cardTotal)) choice = DOUBLE;
-			if (cardTotal == 10) choice = DOUBLE;
-
+			else if (cardTotal == 10) choice = DOUBLE;
+			else if (cardTotal < 17) choice = HIT;
+			else choice = STAND;
 			break;
+
 		case 10://Dealer has 10 or any face card
 			if (checkEleven(cardTotal)) choice = DOUBLE;
-
+			else if (cardTotal < 17) choice = HIT;
+			else choice = STAND;
 			break;
 		}
 		return choice;
@@ -221,19 +230,24 @@ void Game()
 {
 	Dealer house;
 	Counter player;
+	int total = 0;
 	int card = 0;
 	int faceUp = 0;
 
 	card = house.pullCard();//1st pCard
 	player.addCard(card);
+	total += card;
 	faceUp = house.pullCard();//1st hCard(showed to player)
 	house.addCard(faceUp);
 	card = house.pullCard();//2nd pCard
 	player.addCard(card);
+	total += card;
 	card = house.pullCard();//2nd hCard
 	house.addCard(card);
-	player.playerStrategy(faceUp);
-
+	if (faceUp > 10) faceUp = 10;
+	cout << faceUp << endl;
+	cout << total << endl;
+	cout << player.playerStrategy(faceUp) << endl;
 
 }
 
