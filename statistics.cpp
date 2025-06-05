@@ -17,6 +17,14 @@ const int cardsInDeck = 52;//Number of cards
 const int maxTens = 16 * decksInShoe;//10/J/Q/K; 4 suites, max number of "10 cards"
 const int maxAces = 4 * decksInShoe;//4 aces per deck,
 
+enum Decision 
+{
+	HIT = 1,
+	STAND = 2,
+	SPLIT = 3,
+	DOUBLE = 4
+};
+
 class Deck
 {
 public:
@@ -115,46 +123,90 @@ public:
 		cards.clear();
 	}
 
-	void playerStrategy(int faceUp)
+	bool checkEleven(int total)//ALWAYS double on 11 
+	{
+		if (total == 11)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	int playerStrategy(int faceUp)//Main functionality function, encompasses basic strategy
 	{
 		int cardTotal = 0;
 		bool softTotal = false;
+		enum Decision choice = STAND; 
 		if (cards[0] == 11 || cards[0] == 12 || cards[0] == 13) cards[0] = 10;//Face cards set to value of 10
-		if (cards[1] == 11 || cards[1] == 12 || cards[1] == 13) cards[1] = 10;
+		if (cards[1] == 11 || cards[1] == 12 || cards[1] == 13) cards[1] = 10;//Face cards-set to value of 10
+		if (cards[0] == 1 || cards[1] == 1) softTotal = true;
 		cardTotal = cards[0] + cards[1];
 		switch (faceUp)//Player stratedgy based on dealer card
 		{
-		case 1:
+		case 1://Dealer has ace
+			if (checkEleven(cardTotal)) choice = DOUBLE;
+			else if (cardTotal < 17)
+			{
+				choice = HIT;
+			}
+			else
+			{
+				choice = STAND;
+			}
+			break;
+		case 2://Dealer has 2
+			if (checkEleven(cardTotal)) choice = DOUBLE;
+			else if (cardTotal == 10) choice = DOUBLE;
+			else if (cardTotal < 13)
+			{
+				choice = HIT;
+			}
+			else
+			{
+				choice = STAND;
+			}
+			break;
+		case 3://Dealer has 3
+			if (checkEleven(cardTotal)) choice = DOUBLE;
+			if (cardTotal == 10) choice = DOUBLE;
 
 			break;
-		case 2:
+		case 4://Dealer has 4
+			if (checkEleven(cardTotal)) choice = DOUBLE;
+			if (cardTotal == 10) choice = DOUBLE;
 
 			break;
-		case 3:
+		case 5://Dealer has 5
+			if (checkEleven(cardTotal)) choice = DOUBLE;
+			if (cardTotal == 10) choice = DOUBLE;
 
 			break;
-		case 4:
+		case 6://Dealer has 6
+			if (checkEleven(cardTotal)) choice = DOUBLE;
+			if (cardTotal == 10) choice = DOUBLE;
 
 			break;
-		case 5:
+		case 7://Dealer has 7
+			if (checkEleven(cardTotal)) choice = DOUBLE;
+			if (cardTotal == 10) choice = DOUBLE;
 
 			break;
-		case 6:
+		case 8://Dealer has 8
+			if (checkEleven(cardTotal)) choice = DOUBLE;
+			if (cardTotal == 10) choice = DOUBLE;
 
 			break;
-		case 7:
+		case 9://Dealer has 9
+			if (checkEleven(cardTotal)) choice = DOUBLE;
+			if (cardTotal == 10) choice = DOUBLE;
 
 			break;
-		case 8:
-
-			break;
-		case 9:
-
-			break;
-		case 10:
+		case 10://Dealer has 10 or any face card
+			if (checkEleven(cardTotal)) choice = DOUBLE;
 
 			break;
 		}
+		return choice;
 	}
 
 private:
@@ -181,6 +233,8 @@ void Game()
 	card = house.pullCard();//2nd hCard
 	house.addCard(card);
 	player.playerStrategy(faceUp);
+
+
 }
 
 int main()
